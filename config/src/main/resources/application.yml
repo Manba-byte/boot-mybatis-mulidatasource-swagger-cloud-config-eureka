@@ -1,0 +1,18 @@
+
+server:
+  port: 8001
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ThomaWh/boot-mybatis-mulidatasource-swagger-cloud-config-eureka.git #仓库地址
+          search-paths: multidatasource-rep #对应仓库相对路径,可以配置多个用","分割
+          username: ThomaWh
+          password: wang961226
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/   # 注册中心eurka地址
