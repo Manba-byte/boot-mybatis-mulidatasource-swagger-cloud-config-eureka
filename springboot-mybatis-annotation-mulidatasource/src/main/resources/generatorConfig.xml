@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--等下将properties和classPathEntry去掉试一下-->
+    <properties resource="application.properties"/>
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+    <context id="table1" targetRuntime="Mybatis3">
+        <!-- 生成的pojo，将implements Serializable-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <!--注释-->
+        <commentGenerator>
+            <!--是否生成注释时间戳-->
+            <property name="suppressDate" value="true"/>
+            <!--是否去除自动生成的注释 true:是,false:否-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 多数据源针对分库分表配置两个链接-->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://119.23.18.147:3396/test1"
+                userId="root"
+                password="Ccjsj1200#@!"/>
+
+
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--生成实体类的位置-->
+        <javaModelGenerator targetPackage="com.example.mulidatesource.entity" targetProject="src/main/java">
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaModelGenerator>
+
+        <!--生成mapper xml的位置-->
+        <sqlMapGenerator targetPackage="mapper.test1" targetProject="src/main/resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- 生成mapper xml对应interface   这里需要改动targetPackage，依据你自己的工程-->
+        <javaClientGenerator targetPackage="com.example.mulidatesource.mapper.test1" targetProject="src/main/java" type="XMLMAPPER">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 配置表信息test1-rouckets , test2-lakers -->
+        <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
+            是否生成 example类 -->
+        <table schema="test1"
+               tableName="rockets"
+               domainObjectName="Rockets"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <columnOverride column="rockets_id" property="rocketsId"/>
+            <columnOverride column="rockets_name" property="rocketsName"/>
+            <columnOverride column="rockets_loc" property="rocketsLoc"/>
+        </table>
+    </context>
+
+    <context id="table2" targetRuntime="Mybatis3">
+    <!-- 生成的pojo，将implements Serializable-->
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+    <!--注释-->
+    <commentGenerator>
+        <!--是否生成注释时间戳-->
+        <property name="suppressDate" value="true"/>
+        <!--是否去除自动生成的注释 true:是,false:否-->
+        <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    <!-- 多数据源针对分库分表配置两个链接-->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://119.23.18.147:3396/test2"
+                userId="root"
+                password="Ccjsj1200#@!"/>
+
+
+    <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+    <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 -->
+    <javaTypeResolver>
+        <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+        <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+    <!--生成实体类的位置-->
+    <javaModelGenerator targetPackage="com.example.mulidatesource.entity" targetProject="src/main/java">
+        <!-- 从数据库返回的值被清理前后的空格 -->
+        <property name="trimStrings" value="true" />
+        <!-- enableSubPackages:是否让schema作为包的后缀 -->
+        <property name="enableSubPackages" value="false" />
+    </javaModelGenerator>
+
+    <!--生成mapper xml的位置-->
+    <sqlMapGenerator targetPackage="mapper.test2" targetProject="src/main/resources">
+        <!-- enableSubPackages:是否让schema作为包的后缀 -->
+        <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+
+    <!-- 生成mapper xml对应interface   这里需要改动targetPackage，依据你自己的工程-->
+    <javaClientGenerator targetPackage="com.example.mulidatesource.mapper.test2" targetProject="src/main/java" type="XMLMAPPER">
+        <!-- enableSubPackages:是否让schema作为包的后缀 -->
+        <property name="enableSubPackages" value="false" />
+    </javaClientGenerator>
+
+    <!-- 配置表信息test1-rouckets , test2-lakers -->
+    <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
+        是否生成 example类 -->
+        <table schema="test2"
+               tableName="lakers"
+               domainObjectName="Lakers"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <columnOverride column="lakers_id" property="lakersId"/>
+            <columnOverride column="lakers_name" property="lakersName"/>
+            <columnOverride column="lakers_loc" property="lakersLoc"/>
+        </table>
+</context>
+
+
+</generatorConfiguration>

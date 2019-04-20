@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mulidatesource.mapper.test2.LakersMapper" >
+  <resultMap id="BaseResultMap" type="com.example.mulidatesource.entity.Lakers" >
+    <id column="lakers_id" property="lakersId" jdbcType="INTEGER" />
+    <result column="lakers_name" property="lakersName" jdbcType="VARCHAR" />
+    <result column="lakers_loc" property="lakersLoc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lakers_id, lakers_name, lakers_loc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lakers
+    where lakers_id = #{lakersId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lakers
+    where lakers_id = #{lakersId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.mulidatesource.entity.Lakers" >
+    insert into lakers (lakers_id, lakers_name, lakers_loc
+      )
+    values (#{lakersId,jdbcType=INTEGER}, #{lakersName,jdbcType=VARCHAR}, #{lakersLoc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.mulidatesource.entity.Lakers" >
+    insert into lakers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lakersId != null" >
+        lakers_id,
+      </if>
+      <if test="lakersName != null" >
+        lakers_name,
+      </if>
+      <if test="lakersLoc != null" >
+        lakers_loc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lakersId != null" >
+        #{lakersId,jdbcType=INTEGER},
+      </if>
+      <if test="lakersName != null" >
+        #{lakersName,jdbcType=VARCHAR},
+      </if>
+      <if test="lakersLoc != null" >
+        #{lakersLoc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mulidatesource.entity.Lakers" >
+    update lakers
+    <set >
+      <if test="lakersName != null" >
+        lakers_name = #{lakersName,jdbcType=VARCHAR},
+      </if>
+      <if test="lakersLoc != null" >
+        lakers_loc = #{lakersLoc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lakers_id = #{lakersId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.mulidatesource.entity.Lakers" >
+    update lakers
+    set lakers_name = #{lakersName,jdbcType=VARCHAR},
+      lakers_loc = #{lakersLoc,jdbcType=VARCHAR}
+    where lakers_id = #{lakersId,jdbcType=INTEGER}
+  </update>
+</mapper>

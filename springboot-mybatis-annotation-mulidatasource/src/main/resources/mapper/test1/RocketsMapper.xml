@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mulidatesource.mapper.test1.RocketsMapper" >
+
+  <resultMap id="BaseResultMap" type="com.example.mulidatesource.entity.Rockets" >
+    <id column="rockets_id" property="rocketsId" jdbcType="INTEGER" />
+    <result column="rockets_name" property="rocketsName" jdbcType="VARCHAR" />
+    <result column="rockets_loc" property="rocketsLoc" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    rockets_id, rockets_name, rockets_loc
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rockets
+    where rockets_id = #{rocketsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="findRokects" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from rockets
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rockets
+    where rockets_id = #{rocketsId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.mulidatesource.entity.Rockets" >
+    insert into rockets (rockets_id, rockets_name, rockets_loc
+      )
+    values (#{rocketsId,jdbcType=INTEGER}, #{rocketsName,jdbcType=VARCHAR}, #{rocketsLoc,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.mulidatesource.entity.Rockets" >
+    insert into rockets
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rocketsId != null" >
+        rockets_id,
+      </if>
+      <if test="rocketsName != null" >
+        rockets_name,
+      </if>
+      <if test="rocketsLoc != null" >
+        rockets_loc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rocketsId != null" >
+        #{rocketsId,jdbcType=INTEGER},
+      </if>
+      <if test="rocketsName != null" >
+        #{rocketsName,jdbcType=VARCHAR},
+      </if>
+      <if test="rocketsLoc != null" >
+        #{rocketsLoc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mulidatesource.entity.Rockets" >
+    update rockets
+    <set >
+      <if test="rocketsName != null" >
+        rockets_name = #{rocketsName,jdbcType=VARCHAR},
+      </if>
+      <if test="rocketsLoc != null" >
+        rockets_loc = #{rocketsLoc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rockets_id = #{rocketsId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.mulidatesource.entity.Rockets" >
+    update rockets
+    set rockets_name = #{rocketsName,jdbcType=VARCHAR},
+      rockets_loc = #{rocketsLoc,jdbcType=VARCHAR}
+    where rockets_id = #{rocketsId,jdbcType=INTEGER}
+  </update>
+
+</mapper>
